@@ -4,7 +4,8 @@ import(
 	//"fmt"
 	"html/template"
 	"io/ioutil"
-	"os"
+	//"os"
+	"bytes"
 )
 
 type info struct {
@@ -14,7 +15,8 @@ type info struct {
 func main() {
  	contents := openFile("first-post.txt")
 	// fmt.Print(contents)
-	renderFile(contents)
+	//renderFile(contents)
+	writeFile((renderFile(contents)), "first-post.html")
 
 }
 
@@ -30,20 +32,33 @@ func openFile(fileName string) string{
 
 //parses through the file contents and renders them so they written to template (step 2 & 3)
 //parses through the file contents and stores it into a byte array buffer for info to be written to a file(Step 4)
-func renderFile(fileContents string) {
+func renderFile(fileContents string) []byte{
 	// Files are provided as a slice of strings.
 	//already existing template file
 	paths := []string{
 		"template.tmpl",
 	}
+	buffer := new(bytes.Buffer)
 	//creates new template file and bases it off the existing one
 	t := template.Must(template.New("template.tmpl").ParseFiles(paths...))
-	err := t.Execute(os.Stdout, info{ Content:fileContents})
+	//executes and writes the contents out to terminal
+	// err := t.Execute(os.Stdout, info{ Content:fileContents})
+	//executes and writes contents out to first-post.html
+	err := t.Execute(buffer, info{ Content:fileContents})
+
+	
 	if err != nil {
 		panic(err)
 	}
+	return buffer.Bytes()
 }
 
-//takes in the file name you want to write to and and the buffer contating the information you want to write to i
+//takes in the file name you want to write to and and the buffer contating the information you want to write to it
+func writeFile(fileContents []byte, fileName string) {
+	err := ioutil.WriteFile(fileName, fileContents, 0644)
+    if err != nil {
+		panic(err)
+	}
+}
 
 
