@@ -6,6 +6,7 @@ import(
 	"io/ioutil"
 	//"os"
 	"bytes"
+	"flag"
 )
 
 type info struct {
@@ -13,11 +14,13 @@ type info struct {
 } 
 
 func main() {
- 	contents := openFile("first-post.txt")
+	file := flag.String("file", "first-post.txt", "flag for taking in file name")
+	flag.Parse()
+ 	contents := openFile(*file)
 	// fmt.Print(contents)
 	//renderFile(contents)
-	writeFile((renderFile(contents)), "first-post.html")
-
+	//writeFile((renderFile(contents)), "first-post.html")
+	writeFile((renderFile(contents)), "last-post.html")
 }
 
 //opens the file and returns its contents as a string
@@ -33,23 +36,25 @@ func openFile(fileName string) string{
 //parses through the file contents and renders them so they written to template (step 2 & 3)
 //parses through the file contents and stores it into a byte array buffer for info to be written to a file(Step 4)
 func renderFile(fileContents string) []byte{
-	// Files are provided as a slice of strings.
-	//already existing template file
+	//list of existing tempaltes
 	paths := []string{
 		"template.tmpl",
 	}
 	buffer := new(bytes.Buffer)
-	//creates new template file and bases it off the existing one
+	//creates new template file? or object? and bases it off the existing one named template.tmpl
+	//paths... lets you choose wha tpossible tmpl files you wish to use as a bas
 	t := template.Must(template.New("template.tmpl").ParseFiles(paths...))
+
 	//executes and writes the contents out to terminal
 	// err := t.Execute(os.Stdout, info{ Content:fileContents})
-	//executes and writes contents out to first-post.html
+
+	//executes and writes contents out the buffer 
 	err := t.Execute(buffer, info{ Content:fileContents})
 
-	
 	if err != nil {
 		panic(err)
 	}
+	//returns the buffer
 	return buffer.Bytes()
 }
 
