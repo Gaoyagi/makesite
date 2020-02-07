@@ -15,11 +15,13 @@ type info struct {
 
 func main() {
 	file := flag.String("file", "first-post.txt", "flag for taking in file name")
+	//after all the flag values  have been taken in you have to parse themg
 	flag.Parse()
  	contents := openFile(*file)
 	// fmt.Print(contents)
 	//renderFile(contents)
 	//writeFile((renderFile(contents)), "first-post.html")
+	
 	writeFile((renderFile(contents)), "last-post.html")
 }
 
