@@ -9,6 +9,8 @@ import(
 	"bytes"
 	"flag"
 	"path/filepath"
+
+	translate "cloud.google.com/go"
 )
 
 type info struct {
