@@ -1,16 +1,19 @@
 package main
 
 import(
-	"fmt"
+	//"fmt"
 	"strings"
 	"html/template"
 	"io/ioutil"
 	//"os"
 	"bytes"
-	"flag"
+	//"flag"
 	"path/filepath"
+	//"context"
 
-	translate "cloud.google.com/go"
+	//"cloud.google.com/go/translate"
+	//"google.golang.org/api/option"
+	"github.com/gomarkdown/markdown"
 )
 
 type info struct {
@@ -19,25 +22,29 @@ type info struct {
 
 func main() {
 	//file := flag.String("file", "first-post.txt", "flag for taking in file name")
-	dir := flag.String("dir", "hello", "flag for taking in directory ")
+	//dir := flag.String("dir", "hello", "flag for taking in directory ")
 	//after all the flag values  have been taken in you have to parse themg
-	flag.Parse()
+	//flag.Parse()
 
-	names := openDir(*dir)
-	for _, file := range names{
-		fmt.Println(file)
-		contents := openFile(file+".txt")
-		renderFile(contents)
-		writeFile((renderFile(contents)), file+".html")
-		
-	}
+	//v1.1 main stuff
+	// names := openDir(*dir)
+	// for _, file := range names{
+	// 	fmt.Println(file+".txt")
+	// 	contents := openFile(file+".txt")
+	// 	renderFile(contents)
+	// 	writeFile((renderFile(contents)), file+".html")
+	// }
 	
+	//v1.0 main stuff
 	//contents := openFile(*file)
 	//fmt.Print(contents)
 	//renderFile(contents)
 	//writeFile((renderFile(contents)), "first-post.html")
-	
 	//writeFile((renderFile(contents)), "last-post.html")
+
+	//v1.2 stuff
+	contents := openFile("README.md")
+	convertHtml(contents, "README")
 }
 
 //opens the file and returns its contents as a string
@@ -50,18 +57,30 @@ func openFile(fileName string) string{
 	return string(fileContents)
 }
 
+//opens a directory and goes through all the files and finds .txt files and returns the names of them
 func openDir(dirName string) []string{
+	//newstring sub slice array
 	textFiles := make([]string, 0)
+	//opens directory
 	files, err := ioutil.ReadDir(dirName)
     if err != nil {
         panic(err)
-    }
+	}
+	//parses through all the files of the diretory
     for _, file := range files {
+		//if the file is a .txt file, add the nameof thefile to the string sub slice  without the .txt extension
 		if filepath.Ext(file.Name()) == ".txt"{
 			textFiles = append(textFiles, strings.TrimSuffix(file.Name(), ".txt"))
 		}
 	}
 	return textFiles
+}
+
+//converts .md files into html files
+func convertHtml(content string, fileName string) {
+	md := (renderFile(content))
+	html := markdown.ToHTML(md, nil, nil)
+	writeFile(html, fileName+".html")
 }
 
 //parses through the file contents and renders them so they written to template (step 2 & 3)
@@ -83,7 +102,7 @@ func renderFile(fileContents string) []byte{
 	// err := t.Execute(os.Stdout, info{ Content:fileContents})
 
 	//executes and writes contents out the buffer 
-	err := t.Execute(buffer, info{ Content:fileContents})
+	err := t.Execute(buffer, info{ Content:fileContents })
 
 	if err != nil {
 		panic(err)

@@ -1,0 +1,99 @@
+<p>&lt;!doctype html&gt;
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Untitled Custom SSG</title>
+</head>
+<body>
+  # 🔗 makesite</p>
+
+<p><em>Create your own custom Static Site Generator (like <a href="https://jekyllrb.com/">Jekyll</a> or <a href="https://gohugo.io/">Hugo</a>) by cloning and fulfilling the requirements in this repo!</em></p>
+
+<h3>📚 Table of Contents</h3>
+
+<ol>
+<li><a href="#project-structure">Project Structure</a></li>
+<li><a href="#getting-started">Getting Started</a></li>
+<li><a href="#deliverables">Deliverables</a></li>
+<li><a href="#resources">Resources</a></li>
+</ol>
+
+<h2>Project Structure</h2>
+
+<pre><code class="language-bash">📂 makesite
+├── README.md
+├── first-post.txt
+├── latest-post.txt
+├── makesite.go
+└── template.tmpl
+</code></pre>
+
+<h2>Getting Started</h2>
+
+<ol>
+<li>Visit <a href="https://github.com/new">github.com/new</a> and create a new repository named <code>makesite</code>.</li>
+<li>Run each command line-by-line in your terminal to set up the project:</li>
+</ol>
+
+<pre><code class="language-bash">$ cd ~/go/src
+$ git clone git@github.com:Make-School-Labs/makesite.git
+$ cd makesite
+$ git remote rm origin
+$ git remote add origin git@github.com:YOUR_GITHUB_USERNAME/makesite.git
+</code></pre>
+
+<h2>Deliverables</h2>
+
+<p><strong>For each task</strong>:</p>
+
+<ul>
+<li>Complete each task in the order they appear.</li>
+<li>Use <a href="https://help.github.com/en/github/managing-your-work-on-github/about-task-lists">GitHub Task List</a> syntax to update the task list.</li>
+</ul>
+
+<h3>MVP</h3>
+
+<p>Complete the MVP as If you finish early, move on to the stretch challenges.</p>
+
+<p>If you get stuck on any step, be sure to print the output to <code>stdout</code>!</p>
+
+<h4>Requirements</h4>
+
+<ul>
+<li>[X] Read in the contents of the provided <code>first-post.txt</code> file.</li>
+<li>[X] Edit the provided HTML template (<code>layout.html</code>) to display the contents of <code>first-post.txt</code>.</li>
+<li>[X] Render the contents of <code>first-post.txt</code> using Go Templates.</li>
+<li>[X] Write the HTML template to the filesystem to a file. Name it <code>first-post.html</code>.</li>
+<li>[X] Manually test the generated HTML page by double-clicking the <code>first-post.html</code> and opening it in your browser.</li>
+<li>[X] Add, commit, and push to GitHub.</li>
+<li>[X] Add an argument to your CLI command: the name of any <code>.txt</code> file in the same directory as your program. Use <code>latest-post.txt</code> to test.</li>
+<li>[X] Update the <code>save</code> function to use the input filename to generate a new HTML file. For example, if the input file is named <code>latest-post.txt</code>, the generated HTML file should be named <code>latest-post.html</code>.</li>
+<li>[X] Add, commit, and push to GitHub.</li>
+</ul>
+
+<h4>Stretch Challenges</h4>
+
+<ul>
+<li>[ ] Use Bootstrap, or another CSS framework, to enhance the style and readability of your template. <em>Get creative! Writing your very own website generator is a great opportunity to broadcast your style, personality, and development preferences to the world!</em></li>
+</ul>
+
+<h2>Resources</h2>
+
+<h3>Lesson Plans</h3>
+
+<ul>
+<li><a href="https://make-school-courses.github.io/BEW-2.5-Strongly-Typed-Ecosystems/#/Lessons/SSGProject"><strong>BEW 2.5</strong>: Project #1 - Static Site Generators</a></li>
+</ul>
+
+<h3>Example Code</h3>
+
+<ul>
+<li><a href="https://gobyexample.com/reading-files"><strong>Go By Example</strong>: Reading Files</a></li>
+<li><a href="https://gobyexample.com/writing-files"><strong>Go By Example</strong>: Writing Files</a></li>
+<li><a href="https://gobyexample.com/panic"><strong>Go By Example</strong>: Panic</a></li>
+<li><a href="https://blog.gopheracademy.com/advent-2017/using-go-templates/"><strong>GopherAcademy</strong>: Using Go Templates</a></li>
+<li><a href="https://blog.rapid7.com/2016/08/04/build-a-simple-cli-tool-with-golang/"><strong>rapid7.com</strong>: Building a Simple CLI Tool with Golang</a></li>
+</ul>
+
+<p></body>
+</html></p>
